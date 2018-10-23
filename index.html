@@ -19,31 +19,44 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row text-center ">
-            <div class="col-12 triviaQuestions"></div>
+    <div class="container fluid">
+        <div class="row text-center">
+            <div class="col-12">
+                <h1 class="triviaQuestion"></h1>
+            </div>
         </div>
-        <div class="form-check, triviaOpt">
-            <!-- <label class="form-check-label"> -->
-            <input type="radio" class="form-check-input" value="Robotnik Industry&#039;s">Option 1
-            <!-- </label>
-        </div> -->
-            <!-- <div class="form-check"> -->
-            <!-- <label class="form-check-label"> -->
-            <input type="radio" class="form-check-input" value="what&#039;s">Option 2
-            <!-- </label>
-        </div> -->
-            <!-- <div class="form-check">
-            <label class="form-check-label"> -->
-            <input type="radio" class="form-check-input" value="Valley&quot;?">Option 3
-            <!-- </label>
-        </div> -->
+        <div class="row text-center">
+            <div class="col-12">
+                <h2 class="triviaAnswer"></h2>
+            </div>
         </div>
-        <div class="row text center">
-            <button type="button" class="btn col-3 btn-success getData">Get Data</button>
-            <button type="button" class="btn col-3 btn-success checkAnswer">Check Answer</button>
+        <div class="row triviaOption">
+            <!-- added by game.js -->
         </div>
+        <div class="row text-center triviaButton">
+            <button type="button" class="btn btn-success getData">Get Data</button>
+            <!-- <button type="button" class="btn  btn-success next">Next Question</button> -->
+            <button type="button" class="btn  btn-success checkAnswer">Check Answer</button>
+        </div>
+    </div>
 
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-keyboard="false" data-backdrop="static" id="gameIntro">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modalIntro">
+                <div class="row text-center">
+                    <div class="col-12 modalCol">
+                        <h1>Welcome to Hyrule!</h1>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-12 modalButton">
+                        <button type="button" class="btn col-3 btn-success dismiss">Start</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

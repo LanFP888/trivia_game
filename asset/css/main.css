@@ -1,0 +1,45 @@
+body {
+  color: white;
+  font-size: 1.5em;
+  text-shadow: 0 0 5px black;
+}
+
+.container {
+  margin-top: 4%;
+  margin-bottom: 8%;
+  background-image: url("../image/background.jpg");
+  background-size: cover;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  min-height: 90vh;
+}
+
+.form-check-input {
+  height: 0.5em;
+  width: 0.5em;
+  margin-top: 0.5em;
+}
+
+.row {
+  margin: 0.5rem;
+}
+
+.triviaAnswer {
+  margin-top: 2rem;
+  color: yellow;
+  text-shadow: 0 0 3px black;
+}
+
+.triviaOption {
+  position: absolute;
+  bottom: 20%;
+  margin: auto;
+}
+
+.triviaButton {
+  position: absolute;
+  bottom: 10%;
+  margin: auto;
+}
