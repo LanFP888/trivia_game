@@ -96,7 +96,9 @@ var triviaGame = {
   incorrectCount: 0,
   gameOver: false,
 
-  timingQuestion: function() {},
+  timingQuestion: function() {
+    for   
+  },
 
   startGame: function(arr) {
     //assign the variables
