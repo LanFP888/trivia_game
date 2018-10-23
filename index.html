@@ -13,6 +13,7 @@
         crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="asset/css/main.css" />
     <script src="asset/js/func.js"></script>
     <script src="asset/js/game.js"></script>
@@ -30,28 +31,76 @@
                 <h2 class="triviaAnswer"></h2>
             </div>
         </div>
+        <div class="row text-center scoreBoard">
+            <div class="col-md-4">
+                <h2>Correct: </h2>
+                <h2 class="correctCount"></h2>
+            </div>
+            <div class="col-md-4">
+                <h2>Time Remaining: </h2>
+                <h2 class="countDownTimer"></h2>
+            </div>
+            <div class="col-md-4">
+                <h2>Incorrect: </h2>
+                <h2 class="incorrectCount"></h2>
+            </div>
+        </div>
         <div class="row triviaOption">
             <!-- added by game.js -->
         </div>
         <div class="row text-center triviaButton">
-            <button type="button" class="btn btn-success getData">Get Data</button>
-            <!-- <button type="button" class="btn  btn-success next">Next Question</button> -->
+            <button type="button" class="btn  btn-success restartGame">Restart</button>
             <button type="button" class="btn  btn-success checkAnswer">Check Answer</button>
         </div>
     </div>
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-keyboard="false" data-backdrop="static" id="gameIntro">
+    <div class="modal fade bd-example-modal-lg triviaModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content modalIntro">
+            <div class="modal-content">
                 <div class="row text-center">
                     <div class="col-12 modalCol">
-                        <h1>Welcome to Hyrule!</h1>
+                        <h1>Welcome to the Trivia Game!</h1>
                     </div>
                 </div>
                 <div class="row text-center">
+                    <div class="col-12 modalCol">
+                        <h5>You can customize your game below, or simply press start to get a random 10-question trivia</h5>
+                    </div>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="questionQuantity">Number of Questions:</label>
+                        <input type="number" name="quantity" min="1" max="50" required pattern="[0-9]" value="10" id="questionQuantity">
+                    </div>
+                    <div class="form-group">
+                        <label for="questionCategory">Question Category:</label>
+                        <select class="form-control" id="questionCategory">
+                            <option value="any">Any Category</option>
+                            <!-- added by game.js -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="questionDifficulty">Question Difficulty:</label>
+                        <select class="form-control" id="questionDifficulty">
+                            <option value="any">Any Difficulty</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="questionType">Question Difficulty:</label>
+                        <select class="form-control" id="questionType">
+                            <option value="any">Any Type</option>
+                            <option value="multiple">Multiple Choice</option>
+                            <option value="boolean">True or False</option>
+                        </select>
+                    </div>
+                </form>
+                <div class="row text-center">
                     <div class="col-12 modalButton">
-                        <button type="button" class="btn col-3 btn-success dismiss">Start</button>
+                        <button type="button" class="btn btn-success getData">Start Game</button>
                     </div>
                 </div>
             </div>

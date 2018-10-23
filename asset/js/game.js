@@ -9,13 +9,23 @@
 //parse the question and answers from the response
 //plan to catch response_code other than 0 (success)
 //end of game, show correct answer count, incorrect count, and option to restart the game without page reload
+var timer;
+var timePerQuestion = 10;
+var categoryList = [];
+
+$(window).on("load", function() {
+  getCategory();
+  $(".triviaModal").modal("show");
+});
 
 $(document).ready(function() {
+  $(".checkAnswer").hide();
+  $(".restartGame").hide();
   $(".getData").on("click", function() {
-    var gameType;
-    var questionCategoryID;
-    var questionDifficulty;
-    var questionAmount;
+    var gameType = getInput("#questionType", "any");
+    var questionCategoryID = getInput("#questionCategory", "any");
+    var questionDifficulty = getInput("#questionDifficulty", "any");
+    var questionAmount = getInput("#questionQuantity", "10");
     var URL = constructAPI_URL(
       gameType,
       questionCategoryID,
@@ -27,8 +37,17 @@ $(document).ready(function() {
       //the json data retrived will be converted to an object, which contains (response_code and results)
       //store the responseData object in a new gameData object for the rest of the game
       console.log(responseData);
-      triviaGame.startGame(responseData.results);
-      //triviaQuestionParser(gameData.results);
+      if (responseData.response_code === 0) {
+        triviaGame.startGame(responseData.results);
+        $(".triviaModal").modal("hide");
+        $(".restartGame").hide();
+        $(".checkAnswer").show();
+      } else if (
+        responseData.response_code === 1 ||
+        responseData.response_code === 2
+      ) {
+        alert("Error, please adjust your selection and try again");
+      }
     });
   });
 
@@ -40,6 +59,7 @@ $(document).ready(function() {
         // change this to circule correct answer and get rid of other bad answers
         // change triviaAnswer div to display timer, correct number and incorrect number
         $(".triviaAnswer").html("You are correct!");
+        //wait a few seconds and display the next question
         setTimeout(function() {
           triviaGame.nextQuestion();
         }, 1000 * 3);
@@ -54,8 +74,15 @@ $(document).ready(function() {
     } else {
       $(".triviaQuestion").html("Please make a selection");
     }
+  });
 
-    //wait a few seconds and display the next question
+  // $(".next").on("click", function() {
+  //   clearInterval(timer);
+  //   timer = startTimer(timePerQuestion, $(".countDownTimer"));
+  // });
+
+  $(".restartGame").on("click", function() {
+    $(".triviaModal").modal("show");
   });
 });
 
@@ -67,6 +94,9 @@ var triviaGame = {
   incorrectAnswer: [],
   correctCount: 0,
   incorrectCount: 0,
+  gameOver: false,
+
+  timingQuestion: function() {},
 
   startGame: function(arr) {
     //assign the variables
@@ -88,6 +118,9 @@ var triviaGame = {
       $(".triviaAnswer").html("");
       $(".triviaQuestion").html("End of Questions");
       $(".triviaOption").empty();
+      $(".restartGame").show();
+      $(".checkAnswer").hide();
+      this.gameOver = true;
     }
   },
 
@@ -124,33 +157,19 @@ var triviaGame = {
   checkAnswer: function(answerInput) {
     if (this.correctAnswer === answerInput) {
       this.correctCount++;
+      this.updateDisplay();
       return true;
     } else {
       this.incorrectCount++;
+      this.updateDisplay();
       return false;
     }
+  },
+
+  updateDisplay: function() {
+    $(".correctCount").html(this.correctCount);
+    $(".incorrectCount").html(this.incorrectCount);
+
+    //reset and display the countdown timer
   }
 };
-
-{
-  /* <input type="radio"
-
-  name="fontSizeControl"
-
-  id="sizeSmall"
-
-  value="small"
-
-  checked="checked" />
-
-  <label for="sizeSmall">small</label> */
-}
-
-{
-  /* <div class="form-check col-12">
-  <label class="form-check-label">
-    <input class="form-check-input" type="radio" name="exampleRadios" value="">
-      Option one is this and that&mdash;be sure to include why it's great
-                </label>
-            </div> */
-}

@@ -58,6 +58,52 @@ function shuffle(arr) {
   return arr;
 }
 
+function startTimer(duration, display) {
+  var timer = setInterval(function() {
+    minutes = parseInt(duration / 60, 10);
+    seconds = parseInt(duration % 60, 10);
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    display.html(minutes + ":" + seconds);
+    duration--;
+
+    if (duration < 0) {
+      clearInterval(timer);
+      console.log("time's up");
+    }
+  }, 1000);
+
+  return timer;
+}
+
+function getCategory() {
+  var URL = "https://opentdb.com/api_category.php";
+  $.getJSON(URL, function(responseData) {
+    //the json data retrived will be converted to an object, which contains (response_code and results)
+    //store the responseData object in a new gameData object for the rest of the game
+    console.log(responseData.trivia_categories);
+    parseCategoryList(responseData.trivia_categories);
+  });
+}
+
+function parseCategoryList(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    var opt = $("<option>");
+    opt.attr("value", arr[i].id);
+    opt.html(arr[i].name);
+    $("#questionCategory").append(opt);
+  }
+}
+
+function getInput(item, defaultVal) {
+  //console.log(item + ":" + $(item).val());
+  if ($(item).val() !== defaultVal) {
+    return $(item).val();
+  } else {
+    return undefined;
+  }
+}
+
 //parsing the responseData.results
 //format in an array of objects:[{category: "", type: "", difficulty: "", question: "", correct_answer: "", type: "", incorrect_answers: []}]
 function triviaQuestionParser(arr) {
