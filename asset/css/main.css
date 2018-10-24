@@ -4,16 +4,15 @@ body {
   text-shadow: 0 0 5px black;
 }
 
-.container {
-  margin-top: 4%;
-  margin-bottom: 8%;
+.gameArea {
+  margin: 5%;
   background-image: url("../image/background.jpg");
   background-size: cover;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  min-height: 90vh;
+  min-height: 70vh;
   width: auto;
 }
 
@@ -43,5 +42,6 @@ input:valid {
 } */
 
 .modal-content {
+  background-color: blue;
   padding: 3rem;
 }
