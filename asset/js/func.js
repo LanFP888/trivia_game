@@ -103,17 +103,3 @@ function getInput(item, defaultVal) {
     return undefined;
   }
 }
-
-//parsing the responseData.results
-//format in an array of objects:[{category: "", type: "", difficulty: "", question: "", correct_answer: "", type: "", incorrect_answers: []}]
-function triviaQuestionParser(arr) {
-  var questionList = [];
-  for (var i = 0; i < arr.length; i++) {
-    // var newLI = $("<li>");
-    // newLI.addClass("results");
-    // //need to use .html so the special characters encode correctly
-    // newLI.html(arr[i].question);
-    // $(".myData").append(newLI);
-    // questionList.append(arr[i].quest);
-  }
-}

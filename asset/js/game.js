@@ -9,8 +9,9 @@
 //parse the question and answers from the response
 //plan to catch response_code other than 0 (success)
 //end of game, show correct answer count, incorrect count, and option to restart the game without page reload
+
+//format in an array of objects:[{category: "", type: "", difficulty: "", question: "", correct_answer: "", type: "", incorrect_answers: []}]
 var timer;
-var timePerQuestion = 10;
 var categoryList = [];
 
 $(window).on("load", function() {
@@ -21,6 +22,8 @@ $(window).on("load", function() {
 $(document).ready(function() {
   $(".checkAnswer").hide();
   $(".restartGame").hide();
+  $(".correctCount").html("0");
+  $(".incorrectCount").html("0");
   $(".getData").on("click", function() {
     var gameType = getInput("#questionType", "any");
     var questionCategoryID = getInput("#questionCategory", "any");
@@ -55,6 +58,9 @@ $(document).ready(function() {
     var option = $("input:radio:checked", ".triviaOption").val();
     //if non of the option buttons are checked, option will be undefined
     if (option !== undefined) {
+      clearInterval(timer);
+      //hide the check button so user's don't accidentally click twice
+      $(".checkAnswer").hide();
       if (triviaGame.checkAnswer(option)) {
         // change this to circule correct answer and get rid of other bad answers
         // change triviaAnswer div to display timer, correct number and incorrect number
@@ -72,14 +78,9 @@ $(document).ready(function() {
         }, 1000 * 3);
       }
     } else {
-      $(".triviaQuestion").html("Please make a selection");
+      $(".triviaAnswer").html("Please make a selection");
     }
   });
-
-  // $(".next").on("click", function() {
-  //   clearInterval(timer);
-  //   timer = startTimer(timePerQuestion, $(".countDownTimer"));
-  // });
 
   $(".restartGame").on("click", function() {
     $(".triviaModal").modal("show");
@@ -97,7 +98,24 @@ var triviaGame = {
   gameOver: false,
 
   timingQuestion: function() {
-    for   
+    var timePerQuestion = 10;
+    timer = setInterval(function() {
+      $(".countDownTimer").html(timePerQuestion);
+      timePerQuestion--;
+      if (timePerQuestion === 0) {
+        $(".countDownTimer").html(timePerQuestion);
+        clearInterval(timer);
+        //hide the check button so user's don't accidentally click twice
+        $(".checkAnswer").hide();
+        triviaGame.checkAnswer();
+        $(".triviaAnswer").html(
+          "Time's up! Correct answer is: " + triviaGame.correctAnswer
+        );
+        setTimeout(function() {
+          triviaGame.nextQuestion();
+        }, 1000 * 3);
+      }
+    }, 1000);
   },
 
   startGame: function(arr) {
@@ -114,6 +132,8 @@ var triviaGame = {
     //if there are available questions left, continue display
     if (this.questionCount < this.questionMax) {
       $(".triviaAnswer").html("");
+      $(".checkAnswer").show();
+      this.timingQuestion();
       this.displayQuestion();
       this.questionCount++;
     } else {
@@ -122,7 +142,7 @@ var triviaGame = {
       $(".triviaOption").empty();
       $(".restartGame").show();
       $(".checkAnswer").hide();
-      this.gameOver = true;
+      $(".countDownTimer").html("");
     }
   },
 
@@ -171,7 +191,5 @@ var triviaGame = {
   updateDisplay: function() {
     $(".correctCount").html(this.correctCount);
     $(".incorrectCount").html(this.incorrectCount);
-
-    //reset and display the countdown timer
   }
 };
