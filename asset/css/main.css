@@ -19,6 +19,7 @@ body {
   height: 0.5em;
   width: 0.5em;
   margin-top: 0.5em;
+  font-size: 1.5rem;
 }
 
 .row {
@@ -37,42 +38,60 @@ body {
   padding: 3rem;
 }
 
+input[type="radio"]:checked + label {
+  color: greenyellow;
+}
+
+input[type="radio"]:hover + label {
+  border: 3px solid greenyellow;
+}
+
+.correct {
+  color: greenyellow;
+}
+
+.incorrect {
+  color: red;
+}
+
 @media only screen and (max-width: 480px) {
-    h1{
-      font-size: 1.2rem;
-    }
-    h2 {
-      font-size: 1.1rem;
-    }
-    h3 {
-      font-size: 0.9rem;
-    }
-    h4 {
-      font-size: 0.7rem;
-    }
-    h5 {
-      font-size: 0.5rem;
-    }
-    
-    
+  h1 {
+    font-size: 1.2rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+  h3 {
+    font-size: 0.9rem;
+  }
+  .form-check-input {
+    font-size: 0.9rem;
+  }
+  h4 {
+    font-size: 0.7rem;
+  }
+  h5 {
+    font-size: 0.5rem;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-    h1{
-      font-size: 1.4rem;
-    }
-    h2 {
-      font-size: 1.2rem;
-    }
-    h3 {
-      font-size: 1rem;
-    }
-    h4 {
-      font-size: 0.8rem;
-    }
-    h5 {
-      font-size: 0.6rem;
-    }
-    
+  h1 {
+    font-size: 1.4rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+  .form-check-input {
+    font-size: 0.9rem;
+  }
+  h4 {
+    font-size: 0.8rem;
+  }
+  h5 {
+    font-size: 0.6rem;
+  }
 }
-

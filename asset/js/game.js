@@ -61,6 +61,7 @@ $(document).ready(function() {
       clearInterval(timer);
       //hide the check button so user's don't accidentally click twice
       $(".checkAnswer").hide();
+      //if user answers correctly
       if (triviaGame.checkAnswer(option)) {
         // change this to circule correct answer and get rid of other bad answers
         // change triviaAnswer div to display timer, correct number and incorrect number
@@ -70,6 +71,7 @@ $(document).ready(function() {
           triviaGame.nextQuestion();
         }, 1000 * 3);
       } else {
+        //if user answers incorrectly
         $(".triviaAnswer").html(
           "Sorry, correct answer is: " + triviaGame.correctAnswer
         );
@@ -98,7 +100,7 @@ var triviaGame = {
   gameOver: false,
 
   timingQuestion: function() {
-    var timePerQuestion = 10;
+    var timePerQuestion = 15;
     timer = setInterval(function() {
       $(".countDownTimer").html(timePerQuestion);
       timePerQuestion--;
@@ -160,19 +162,22 @@ var triviaGame = {
     $(".triviaOption").empty();
     //list out the options
     for (i = 0; i < questionOption.length; i++) {
-      var q1 = $("<div>");
-      q1.addClass("form-check col-12");
-      var q2 = $("<input>");
-      q2.addClass("form-check-input");
-      //radio buttons require the same name
-      q2.attr("name", "triviaOption");
-      q2.attr("type", "radio");
-      q2.attr("value", questionOption[i]);
-      q2.attr("id", questionOption[i]);
-      var q3 = $("<label>");
-      q3.attr("for", questionOption[i]);
-      q3.html("<h3>" + questionOption[i] + "</h3>");
-      $(".triviaOption").append(q1.append(q2, q3));
+      //this catches the rare instances where one of the question options is blank
+      if (questionOption[i] !== "") {
+        var q1 = $("<div>");
+        q1.addClass("form-check col-12");
+        var q2 = $("<input>");
+        q2.addClass("form-check-input");
+        //radio buttons require the same name
+        q2.attr("name", "triviaOption");
+        q2.attr("type", "radio");
+        q2.attr("value", questionOption[i]);
+        q2.attr("id", questionOption[i]);
+        var q3 = $("<label>");
+        q3.attr("for", questionOption[i]);
+        q3.html("<h3>" + questionOption[i] + "</h3>");
+        $(".triviaOption").append(q1.append(q2, q3));
+      }
     }
   },
 
